@@ -5225,37 +5225,7 @@
             background: rgba(0, 0, 0, 0.05);
             transform: scale(1.1);
         }
-
-        /* 角色卡导入导出按钮样式 */
-        .import-character-btn,
-        .export-character-btn {
-            position: absolute;
-            right: 20px;
-            top: 39.5px;
-            width: 30px;
-            height: 30px;
-            background: none;
-            border: none;
-            font-size: 18px;
-            color: #000000;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* 完全移除导入导出按钮的所有效果 */
-        .import-character-btn:hover,
-        .export-character-btn:hover,
-        .import-character-btn:active,
-        .export-character-btn:active {
-            transform: none !important;
-            background: none !important;
-            box-shadow: none !important;
-            scale: none !important;
-        }
         
-
         
         .app-content {
             flex: 1;
@@ -29507,3 +29477,100 @@ textarea.call-text-input {
             background: #e9ecef;
             transform: translateY(-2px);
         }
+        /* ==================== 请求码显示框样式 ==================== */
+.code-display-box {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 4px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    color: #333;
+    border: 1px solid #ddd;
+    margin: 15px 0;
+    word-wrap: break-word; /* 自动换行 */
+}
+/* ========================================================= */
+/* ==================== 授权码门禁样式 ==================== */
+/* ========================================================= */
+
+#auth-overlay {
+    position: fixed; /* 固定定位，让它“飞”出正常布局 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75); /* 半透明黑色背景 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* 确保它在所有东西的最顶层 */
+}
+
+.auth-box {
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    width: 90%;
+    max-width: 350px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+.auth-box h1 {
+    margin-top: 0;
+    font-size: 22px;
+    color: #333;
+}
+
+.auth-box p {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+}
+
+#license-input {
+    width: 100%;
+    padding: 12px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-top: 20px;
+    font-size: 16px;
+    text-align: center;
+}
+
+#activate-button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    margin-top: 15px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#activate-button:hover {
+    background-color: #0056b3;
+}
+
+.code-display-box {
+    background-color: #f0f0f0;
+    padding: 12px;
+    border-radius: 8px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    color: #333;
+    border: 1px solid #ddd;
+    margin: 20px 0;
+    word-wrap: break-word;
+}
+
+/* 一个用来隐藏元素的通用类 */
+.hidden {
+    display: none !important;
+}
