@@ -622,7 +622,7 @@
         .app-icon-img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
             border-radius: 18px;
         }
         
@@ -4751,7 +4751,7 @@
             width: var(--fixed-mini-app-icon-size) !important;
             height: var(--fixed-mini-app-icon-size) !important;
             border-radius: var(--fixed-mini-app-icon-radius) !important;
-            background-color: var(--color-white);
+            background-color: transparent;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -4915,7 +4915,7 @@
             width: var(--fixed-dock-app-icon-size) !important;
             height: var(--fixed-dock-app-icon-size) !important;
             border-radius: var(--fixed-dock-app-icon-radius) !important;
-            background-color: var(--color-white);
+            background-color: transparent;
             display: flex;
             justify-content: center;
             align-items: center;
