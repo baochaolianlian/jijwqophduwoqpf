@@ -27930,6 +27930,149 @@ textarea.call-text-input {
             background: #e03e3e;
         }
 
+        /* 个人表情包描述添加模态框样式 */
+        .personal-emoji-description-modal {
+            max-width: 450px;
+            width: 90%;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .personal-emoji-description-modal .modal-header {
+            background: linear-gradient(135deg, #8FA8B2, #A8BCC8);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .personal-emoji-description-modal .modal-header h3 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .personal-emoji-description-modal .modal-close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: all 0.2s ease;
+        }
+
+        .personal-emoji-description-modal .modal-close-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .personal-emoji-description-modal .modal-body {
+            padding: 25px;
+            background: white;
+        }
+
+        .personal-emoji-description-modal .emoji-preview-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .personal-emoji-description-modal .emoji-preview-container img {
+            border: 2px solid #e0e0e0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .personal-emoji-description-modal .form-group {
+            margin-bottom: 20px;
+        }
+
+        .personal-emoji-description-modal .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .personal-emoji-description-modal .form-textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 14px;
+            line-height: 1.5;
+            resize: vertical;
+            min-height: 80px;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        .personal-emoji-description-modal .form-textarea:focus {
+            outline: none;
+            border-color: #8FA8B2;
+            box-shadow: 0 0 0 3px rgba(143, 168, 178, 0.1);
+        }
+
+        .personal-emoji-description-modal .form-textarea::placeholder {
+            color: #999;
+            font-style: italic;
+        }
+
+        .personal-emoji-description-modal .description-help {
+            background: #f5f7f8;
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 10px;
+        }
+
+        .personal-emoji-description-modal .modal-footer {
+            padding: 20px 25px;
+            background: #f5f7f8;
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        .personal-emoji-description-modal .modal-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-width: 80px;
+        }
+
+        .personal-emoji-description-modal .cancel-btn {
+            background: #e0e0e0;
+            color: #666;
+        }
+
+        .personal-emoji-description-modal .cancel-btn:hover {
+            background: #d0d0d0;
+            color: #555;
+        }
+
+        .personal-emoji-description-modal .confirm-btn {
+            background: #8FA8B2;
+            color: white;
+        }
+
+        .personal-emoji-description-modal .confirm-btn:hover {
+            background: #7A9AA6;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(143, 168, 178, 0.3);
+        }
+
         @keyframes confirmFadeIn {
             from { opacity: 0; }
             to { opacity: 1; }

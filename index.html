@@ -4487,6 +4487,29 @@
                 <input type="file" id="image-upload" accept="image/*" style="display: none;">
                 <input type="file" id="emoji-upload" accept="image/*" style="display: none;" multiple>
 
+                <!-- 个人表情包描述添加模态框 -->
+                <div id="personal-emoji-description-modal" class="modal-overlay" style="display: none;" onclick="hidePersonalEmojiDescriptionModal(event)">
+                    <div class="modal-content personal-emoji-description-modal" onclick="event.stopPropagation()">
+                        <div class="modal-header">
+                            <h3>添加表情包描述</h3>
+                            <button class="modal-close-btn" onclick="hidePersonalEmojiDescriptionModal()">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="emoji-preview-container">
+                                <img id="personal-emoji-preview-image" src="" alt="表情包预览" style="max-width: 100px; max-height: 100px; border-radius: 8px; margin-bottom: 15px;">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">表情包描述</label>
+                                <textarea class="form-textarea" id="personal-emoji-description-input" placeholder="请为这个表情包添加描述，帮助AI更好地理解表情包内容" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="modal-btn cancel-btn" onclick="hidePersonalEmojiDescriptionModal()">取消</button>
+                            <button class="modal-btn confirm-btn" onclick="confirmPersonalEmojiDescription()">确定</button>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- 🔥【新增】角色足迹模态框 -->
                 <div id="character-footprints-modal" class="modal-overlay" style="display: none;" onclick="hideCharacterFootprints(event)">
                     <div class="modal-content footprints-modal" onclick="event.stopPropagation()">
@@ -9204,6 +9227,7 @@
         let customEmojis = []; // 用户直接上传的个人表情包（显示在聊天界面）
         let recentEmojis = []; // 最近使用的表情包
         let currentEmojiTab = 'recent'; // 当前表情包标签页
+        let pendingPersonalEmojiData = null; // 待处理的个人表情包数据（用于描述模态框）
 
         // 面具区域相关变量
         let isPersonaExpanded = true; // 面具区域是否展开，默认展开
@@ -23059,7 +23083,7 @@ if ((!myDisplayAvatar || !myDisplayName) && chatSettings.selectedIdentityId) {
 
                         // 插入到正确位置
                         const insertAfter = messagesContainer.querySelector('.load-more-messages');
-                        if (insertAfter) {
+                        if (insertAfter && insertAfter.parentNode) {
                             insertAfter.parentNode.insertBefore(centerContainer, insertAfter.nextSibling);
                         } else {
                             messagesContainer.insertBefore(centerContainer, messagesContainer.firstChild);
@@ -23144,7 +23168,7 @@ if ((!myDisplayAvatar || !myDisplayName) && chatSettings.selectedIdentityId) {
 
                     // 插入到按钮后面（如果有按钮的话）
                     const insertAfter = messagesContainer.querySelector('.load-more-messages');
-                    if (insertAfter) {
+                    if (insertAfter && insertAfter.parentNode) {
                         insertAfter.parentNode.insertBefore(containerToInsert, insertAfter.nextSibling);
                     } else {
                         messagesContainer.insertBefore(containerToInsert, messagesContainer.firstChild);
@@ -23569,7 +23593,7 @@ if ((!myDisplayAvatar || !myDisplayName) && chatSettings.selectedIdentityId) {
 
                 // 插入消息到正确位置
                 const insertAfter = messagesContainer.querySelector('.load-more-messages');
-                if (insertAfter) {
+                if (insertAfter && insertAfter.parentNode) {
                     insertAfter.parentNode.insertBefore(messageContainer, insertAfter.nextSibling);
                 } else {
                     messagesContainer.insertBefore(messageContainer, messagesContainer.firstChild);
@@ -41576,24 +41600,19 @@ ${groupChats.length > 0 ? '✅ 发现群聊数据' : '❌ 未发现群聊数据'
 
                 const reader = new FileReader();
                 reader.onload = function(event) {
-                    // 弹出描述输入框
-                    const description = prompt('请为这个表情包添加描述（推荐！帮助AI更好地理解表情包内容）:\n\n例如：\n• "笑哭的表情"\n• "握拳加油的动作"\n• "写着OMG的表情包"\n• "愤怒的猫咪图片"', '');
-
-                    const emoji = {
+                    // 准备个人表情包数据
+                    const emojiData = {
                         id: Date.now().toString() + '_' + Math.random().toString(36).substr(2, 9),
                         url: event.target.result,
-                        description: description || '表情包',
                         addedAt: new Date().toISOString(),
                         isPersonal: true // 标识为个人表情包
                     };
 
-                    customEmojis.push(emoji);
-                    saveCustomEmojis();
+                    // 存储待处理的表情包数据
+                    pendingPersonalEmojiData = emojiData;
 
-                    // 如果当前在自定义标签页，重新渲染
-                    if (currentEmojiTab === 'custom') {
-                        renderEmojiGrid();
-                    }
+                    // 显示描述添加模态框
+                    showPersonalEmojiDescriptionModal(event.target.result);
                 };
 
                 reader.readAsDataURL(file);
@@ -41601,6 +41620,89 @@ ${groupChats.length > 0 ? '✅ 发现群聊数据' : '❌ 未发现群聊数据'
 
             // 清空文件输入
             e.target.value = '';
+        }
+
+        // 显示个人表情包描述添加模态框
+        function showPersonalEmojiDescriptionModal(imageUrl) {
+            const modal = document.getElementById('personal-emoji-description-modal');
+            const previewImage = document.getElementById('personal-emoji-preview-image');
+            const descriptionInput = document.getElementById('personal-emoji-description-input');
+
+            // 设置预览图片
+            previewImage.src = imageUrl;
+
+            // 清空描述输入框
+            descriptionInput.value = '';
+
+            // 显示模态框
+            modal.style.display = 'flex';
+
+            // 聚焦到描述输入框
+            setTimeout(() => {
+                descriptionInput.focus();
+            }, 100);
+
+            // 添加键盘事件监听
+            const handleKeyDown = (e) => {
+                if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+                    // Ctrl+Enter 或 Cmd+Enter 确认
+                    confirmPersonalEmojiDescription();
+                    descriptionInput.removeEventListener('keydown', handleKeyDown);
+                } else if (e.key === 'Escape') {
+                    // Esc 取消
+                    hidePersonalEmojiDescriptionModal();
+                    descriptionInput.removeEventListener('keydown', handleKeyDown);
+                }
+            };
+
+            descriptionInput.addEventListener('keydown', handleKeyDown);
+        }
+
+        // 隐藏个人表情包描述添加模态框
+        function hidePersonalEmojiDescriptionModal(event) {
+            if (event && event.target !== event.currentTarget) {
+                return;
+            }
+
+            const modal = document.getElementById('personal-emoji-description-modal');
+            modal.style.display = 'none';
+
+            // 清空待处理的数据
+            pendingPersonalEmojiData = null;
+        }
+
+        // 确认个人表情包描述
+        function confirmPersonalEmojiDescription() {
+            if (!pendingPersonalEmojiData) return;
+
+            const descriptionInput = document.getElementById('personal-emoji-description-input');
+            const description = descriptionInput.value.trim() || '表情包';
+
+            // 创建新的表情包
+            const emoji = {
+                id: pendingPersonalEmojiData.id,
+                url: pendingPersonalEmojiData.url,
+                description: description,
+                addedAt: pendingPersonalEmojiData.addedAt,
+                isPersonal: pendingPersonalEmojiData.isPersonal
+            };
+
+            customEmojis.push(emoji);
+            saveCustomEmojis();
+
+            // 如果当前在自定义标签页，重新渲染
+            if (currentEmojiTab === 'custom') {
+                renderEmojiGrid();
+            }
+
+            // 隐藏模态框
+            document.getElementById('personal-emoji-description-modal').style.display = 'none';
+
+            // 清空待处理的数据
+            pendingPersonalEmojiData = null;
+
+            // 显示成功提示
+            showToast('表情包已添加', 'success');
         }
 
         // ===== 表情包库功能 =====
@@ -42278,11 +42380,7 @@ ${groupChats.length > 0 ? '✅ 发现群聊数据' : '❌ 未发现群聊数据'
                             <textarea id="emoji-description-input" class="form-textarea"
                                       placeholder="请描述这个表情包的含义、情绪或使用场景，帮助AI理解何时使用..."
                                       rows="3" maxlength="100">${currentDescription}</textarea>
-                            <div class="form-hint">
-                                <small>💡 好的描述示例：</small><br>
-                                <small>• "开心大笑的表情" • "无奈摊手" • "生气愤怒"</small><br>
-                                <small>• "可爱卖萌" • "惊讶震惊" • "哭泣难过"</small>
-                            </div>
+
                         </div>
                     </div>
                     <div class="modal-footer">
