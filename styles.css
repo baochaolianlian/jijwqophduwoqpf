@@ -29574,3 +29574,50 @@ textarea.call-text-input {
 .hidden {
     display: none !important;
 }
+/* ================== 使用手册样式 (新版) ================== */
+.manual-content {
+    padding: 15px 20px 30px 20px !important;
+    color: #333;
+    line-height: 1.8;
+    font-size: 15px;
+}
+
+.manual-content h3 {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #111;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.manual-content h3 > i {
+    margin-right: 8px;
+    color: var(--theme-color, #007AFF);
+}
+
+
+.manual-content p, 
+.manual-content li {
+    margin-bottom: 10px;
+    color: #444;
+}
+
+.manual-content ul, 
+.manual-content ol {
+    padding-left: 20px;
+}
+
+.manual-content li {
+    margin-bottom: 8px;
+}
+
+.manual-content strong {
+    color: #000;
+    font-weight: 600;
+}
+
+.manual-content ol li::marker {
+    font-weight: bold;
+}
