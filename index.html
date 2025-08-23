@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>EVE Chat</title>
+    <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="icons/icon-180x180.png">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💬</text></svg>">
     <link rel="shortcut icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💬</text></svg>">
@@ -889,11 +890,11 @@
                             </div>
                             <span>设置</span>
                         </a>
-                        <a href="#" class="dock-app" onclick="showApp('user-manual-screen')">
+                        <a href="#" class="dock-app" onclick="showApp('memory-viewer-screen')">
                             <div class="dock-app-icon">
                                 <i class="fas fa-brain"></i>
                             </div>
-                            <span>使用手册</span>
+                            <span>记忆</span>
                         </a>
                     </div>
                 </div>
@@ -4079,10 +4080,13 @@
                                 <label class="form-label">姓名</label>
                                 <input type="text" class="form-input" id="character-name" placeholder="输入姓名">
                             </div>
-                            <div class="form-group">
-                                <label class="form-label">人设</label>
-                                <textarea class="form-textarea" id="character-bio" placeholder="输入人物设定"></textarea>
-                            </div>
+                          <div class="form-group">
+    <label class="form-label">
+        人设
+        <span class="label-hint">（禁止导入使用酒馆角色卡）</span>
+    </label>
+    <textarea class="form-textarea" id="character-bio" placeholder="输入人物设定"></textarea>
+</div>
                             <div class="form-actions form-actions-flex">
                                 <button class="form-submit form-submit-flex">保存</button>
                                 <button class="form-delete form-delete-red" id="character-delete-btn" onclick="deleteCurrentCharacter()">删除</button>
@@ -4698,7 +4702,7 @@
                                 <div class="settings-icon about">
                                     <i class="fas fa-info-circle"></i>
                                 </div>
-                                <div>关于我们</div>
+                                <div>免责声明</div>
                             </div>
                             <i class="fas fa-chevron-right"></i>
                         </div>
@@ -5082,7 +5086,7 @@
                     </div>
                 </div>
 
-                <!-- 关于我们 -->
+                <!-- 免责声明 -->
                 <div id="about-screen" class="app-screen">
                     <div class="app-top-container">
                         <div class="app-status-bar">
@@ -5105,14 +5109,26 @@
                     </div>
                         <div class="app-header">
                             <button class="back-button" onclick="backToSettings('about-screen')">‹</button>
-                            <div class="app-title">关于我们</div>
+                       <div class="app-title">免责声明</div>
                         </div>
                     </div>
-                    <div class="app-content">
-                        <div class="about-content">
-                            <div class="about-title">EVE聊天室</div>
-                            <div class="about-version">版本 1.0.0</div>
-                            <div class="about-author">作者@EVE</div>
+                    <div class="app-content" style="padding: 20px; text-align: left; color: #333; line-height: 1.8;">
+                        <h2 style="text-align: center; margin-bottom: 20px;">免责声明</h2>
+                        <p style="margin-bottom: 15px;">本应用（“EVE Chat”）仅供娱乐和信息分享，不构成任何专业建议（如医疗、法律、金融等）。</p>
+                        <p style="margin-bottom: 15px;">本应用中的虚拟角色和对话内容均为AI生成，不代表任何真实人物、实体或组织的观点。</p>
+                        <p style="margin-bottom: 15px;">用户生成和使用的所有Al角色设定、对话、图片等内容的责任由用户自行承担。</p>
+                        <p style="margin-bottom: 15px;">用户在与其他用户互动时，应自行承担风险。开发者不对用户之间的任何行为负责。</p>
+                        <p style="margin-bottom: 15px;">用户使用期间产生的数据皆为本地存储。</p>
+                        <p style="margin-bottom: 15px;">请勿将本网页用于任何非法或侵犯他人权益的用途。开发者不对因使用本应用而产生的任何直接或间接后果负责。</p>
+                        <p style="margin-bottom: 25px; font-weight: bold;">继续使用本应用即表示您已阅读、理解并同意本免责声明。</p>
+                        <div class="disclaimer-footer" style="margin-top: 30px; border-top: 1px solid #eee; padding-top: 15px; color: #888; font-size: 14px;">
+                            <p><strong>作者：</strong>EVE</p>
+                            <p><strong>网页名：</strong>EVE Chat</p>
+                            <p>禁止任何二传二改</p>
+                            <p><strong>唯一获取途径QQ群：963263414</strong></p>
+                            <hr style="margin: 15px 0; border: none; border-top: 1px solid #eee;">
+                            <p>版本：1.0.0</p>
+                            <p>最后更新：2025年8月23日</p>
                         </div>
                     </div>
                 </div>
@@ -6410,7 +6426,7 @@
                                     <div style="display: flex; align-items: center; justify-content: space-between;">
                                         <div>
                                             <div style="font-size: 16px; font-weight: 600; margin-bottom: 4px; color: #f39c12;">🤗 HuggingFace 反代</div>
-                                            <div style="font-size: 13px; color: #666;">免费使用多种大模型，支持Claude等</div>
+                                            <div style="font-size: 13px; color: #666;">具体部署教程善用搜索</div>
                                         </div>
                                         <div style="background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%); color: white; padding: 8px 14px; border-radius: 20px; font-size: 13px; font-weight: 500; box-shadow: 0 2px 8px rgba(243, 156, 18, 0.3);">点击配置</div>
                                     </div>
@@ -6951,6 +6967,13 @@
                     </div>
                 </div>
 
+                <!-- 照片拍摄模态框 -->
+
+
+
+
+
+
                 <!-- 聊天选项模态框 -->
                 <div class="modal" id="chat-options-modal">
                     <div class="modal-content">
@@ -7373,7 +7396,9 @@
 
                             <!-- 自定义CSS -->
                             <div class="custom-css-section">
-                                <label class="form-label">自定义CSS样式</label>
+                                <label class="form-label">自定义CSS样式
+                               <span class="label-hint">禁止二改他人气泡代码</span>
+                                </label>
                                 <textarea id="custom-bubble-css" placeholder="输入自定义CSS代码...
 
 示例（使用标准选择器）：
